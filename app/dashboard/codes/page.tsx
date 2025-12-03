@@ -86,15 +86,15 @@ export default function ValidateCodesPage() {
 
         {result && (
           <div className="border border-gray-200 rounded-lg p-6">
-            <h2 className="text-xl font-semibold mb-4">Code Details</h2>
+            <h2 className="text-xl font-semibold mb-4 text-gray-900">Code Details</h2>
             <div className="space-y-3">
               <div className="flex justify-between">
                 <span className="text-gray-600">Code:</span>
-                <span className="font-mono font-semibold">{result.code}</span>
+                <span className="font-mono font-semibold text-gray-900">{result.code}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Email:</span>
-                <span>{result.email}</span>
+                <span className="text-gray-900">{result.email}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Status:</span>
@@ -110,12 +110,12 @@ export default function ValidateCodesPage() {
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Created:</span>
-                <span>{new Date(result.created_at).toLocaleString()}</span>
+                <span className="text-gray-900">{new Date(result.created_at).toLocaleString()}</span>
               </div>
               {result.used_at && (
                 <div className="flex justify-between">
                   <span className="text-gray-600">Used At:</span>
-                  <span>{new Date(result.used_at).toLocaleString()}</span>
+                  <span className="text-gray-900">{new Date(result.used_at).toLocaleString()}</span>
                 </div>
               )}
             </div>
