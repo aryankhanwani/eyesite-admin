@@ -250,7 +250,7 @@ export default function BlogForm({ blog }: BlogFormProps) {
                 <button
                   type="button"
                   onClick={() => applyFormat('bold')}
-                  className="px-3 py-1.5 text-sm font-semibold bg-white border border-gray-300 rounded-md hover:bg-[#19395f] hover:text-white hover:border-[#19395f] transition-all flex items-center gap-1.5"
+                  className="px-3 py-1.5 text-sm font-semibold text-gray-900 bg-white border border-gray-300 rounded-md hover:bg-[#19395f] hover:text-white hover:border-[#19395f] transition-all flex items-center gap-1.5"
                   title="Bold"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -262,7 +262,7 @@ export default function BlogForm({ blog }: BlogFormProps) {
                 <button
                   type="button"
                   onClick={() => applyFormat('h1')}
-                  className="px-3 py-1.5 text-sm font-semibold bg-white border border-gray-300 rounded-md hover:bg-[#19395f] hover:text-white hover:border-[#19395f] transition-all"
+                  className="px-3 py-1.5 text-sm font-semibold text-gray-900 bg-white border border-gray-300 rounded-md hover:bg-[#19395f] hover:text-white hover:border-[#19395f] transition-all"
                   title="Heading 1"
                 >
                   H1
@@ -270,7 +270,7 @@ export default function BlogForm({ blog }: BlogFormProps) {
                 <button
                   type="button"
                   onClick={() => applyFormat('h2')}
-                  className="px-3 py-1.5 text-sm font-semibold bg-white border border-gray-300 rounded-md hover:bg-[#19395f] hover:text-white hover:border-[#19395f] transition-all"
+                  className="px-3 py-1.5 text-sm font-semibold text-gray-900 bg-white border border-gray-300 rounded-md hover:bg-[#19395f] hover:text-white hover:border-[#19395f] transition-all"
                   title="Heading 2"
                 >
                   H2
@@ -278,7 +278,7 @@ export default function BlogForm({ blog }: BlogFormProps) {
                 <button
                   type="button"
                   onClick={() => applyFormat('h3')}
-                  className="px-3 py-1.5 text-sm font-semibold bg-white border border-gray-300 rounded-md hover:bg-[#19395f] hover:text-white hover:border-[#19395f] transition-all"
+                  className="px-3 py-1.5 text-sm font-semibold text-gray-900 bg-white border border-gray-300 rounded-md hover:bg-[#19395f] hover:text-white hover:border-[#19395f] transition-all"
                   title="Heading 3"
                 >
                   H3
@@ -286,7 +286,7 @@ export default function BlogForm({ blog }: BlogFormProps) {
                 <button
                   type="button"
                   onClick={() => applyFormat('bullet')}
-                  className="px-3 py-1.5 text-sm font-semibold bg-white border border-gray-300 rounded-md hover:bg-[#19395f] hover:text-white hover:border-[#19395f] transition-all flex items-center gap-1.5"
+                  className="px-3 py-1.5 text-sm font-semibold text-gray-900 bg-white border border-gray-300 rounded-md hover:bg-[#19395f] hover:text-white hover:border-[#19395f] transition-all flex items-center gap-1.5"
                   title="Bullet List"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

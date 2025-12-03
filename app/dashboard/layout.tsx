@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { supabaseAdmin } from '@/lib/supabase/admin'
-import DashboardNav from '@/components/DashboardNav'
+import DashboardLayoutClient from '@/components/DashboardLayoutClient'
 
 export default async function DashboardLayout({
   children,
@@ -26,21 +26,6 @@ export default async function DashboardLayout({
 
   const userRole = adminUser?.role || 'staff'
 
-  return (
-    <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row">
-      {/* Sidebar */}
-      <aside className="hidden md:flex md:w-64 lg:w-72 bg-[#19395f] text-white flex-col flex-shrink-0">
-        <DashboardNav user={user} userRole={userRole} />
-      </aside>
-
-      {/* Mobile top bar */}
-      <div className="md:hidden w-full bg-[#19395f] text-white flex-shrink-0">
-        <DashboardNav user={user} userRole={userRole} />
-      </div>
-
-      {/* Main content */}
-      <main className="flex-1 p-3 sm:p-4 md:p-6 lg:p-8 overflow-x-auto min-w-0">{children}</main>
-    </div>
-  )
+  return <DashboardLayoutClient user={user} userRole={userRole}>{children}</DashboardLayoutClient>
 }
 

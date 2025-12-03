@@ -1,15 +1,17 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 
 interface DashboardNavProps {
   user: any
   userRole?: 'admin' | 'staff'
+  onNavigate?: () => void
 }
 
-export default function DashboardNav({ user, userRole = 'staff' }: DashboardNavProps) {
+export default function DashboardNav({ user, userRole = 'staff', onNavigate }: DashboardNavProps) {
   const pathname = usePathname()
   const router = useRouter()
 
@@ -93,18 +95,31 @@ export default function DashboardNav({ user, userRole = 'staff' }: DashboardNavP
     <div className="h-full flex flex-col bg-gradient-to-b from-[#19395f] to-[#0d2440] text-white shadow-xl">
       {/* Logo / header */}
       <div className="h-20 flex items-center px-6 border-b border-white/10">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-            </svg>
+        <Link href="/dashboard" className="flex items-center gap-3 cursor-pointer">
+          {/* Logo Icon */}
+          <Image
+            src="/logo-icon.png"
+            alt="Eyesite Icon"
+            width={40}
+            height={40}
+            quality={100}
+            className="h-10 w-10 object-contain"
+            priority
+          />
+          {/* Main Logo */}
+          <div className="flex flex-col">
+            <Image
+              src="/eyesite-logo.png"
+              alt="Eyesite Opticians Logo"
+              width={120}
+              height={40}
+              quality={100}
+              className="h-6 w-auto object-contain brightness-0 invert"
+              priority
+            />
+            <p className="text-xs text-white/70 mt-0.5">Admin Panel</p>
           </div>
-          <div>
-            <span className="text-lg font-bold tracking-wide">Eyesite</span>
-            <p className="text-xs text-white/70">Admin Panel</p>
-          </div>
-        </div>
+        </Link>
       </div>
 
       {/* Nav items */}
@@ -117,6 +132,7 @@ export default function DashboardNav({ user, userRole = 'staff' }: DashboardNavP
               <Link
                 key={item.href}
                 href={item.href}
+                onClick={onNavigate}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
                   active
                     ? 'bg-white text-[#19395f] shadow-lg'
