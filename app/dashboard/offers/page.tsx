@@ -73,7 +73,7 @@ export default async function OffersPage({
         </div>
         <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-4 border border-orange-200">
           <div className="flex items-center justify-between">
-            <div>
+    <div>
               <p className="text-sm text-orange-700 font-medium">Used Codes</p>
               <p className="text-2xl font-bold text-orange-900 mt-1">{usedCount}</p>
             </div>

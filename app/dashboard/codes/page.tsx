@@ -52,7 +52,7 @@ export default function ValidateCodesPage() {
   return (
     <div className="space-y-4 sm:space-y-6">
       {/* Header */}
-      <div>
+    <div>
         <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">Validate Offer Code</h1>
         <p className="text-xs sm:text-sm md:text-base text-gray-600 mt-1">Check discount code validity and mark codes as used when customers redeem them</p>
       </div>

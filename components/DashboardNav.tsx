@@ -98,17 +98,17 @@ export default function DashboardNav({ user, userRole = 'staff', onNavigate }: D
         <Link href="/dashboard" className="flex flex-col items-center gap-1 cursor-pointer">
           {/* Both Logos Side by Side */}
           <div className="flex items-center gap-2">
-            {/* Logo Icon */}
-            <Image
-              src="/logo-icon.png"
-              alt="Eyesite Icon"
+          {/* Logo Icon */}
+          <Image
+            src="/logo-icon.png"
+            alt="Eyesite Icon"
               width={28}
               height={28}
-              quality={100}
+            quality={100}
               className="h-7 w-7 object-contain"
-              priority
-            />
-            {/* Main Logo */}
+            priority
+          />
+          {/* Main Logo */}
             <Image
               src="/eyesite-logo.png"
               alt="Eyesite Opticians Logo"
