@@ -1,4 +1,3 @@
-import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import DeleteBlogButton from '@/components/DeleteBlogButton'
 import RefreshButton from '@/components/RefreshButton'
@@ -6,6 +5,7 @@ import SafeImage from '@/components/SafeImage'
 import ExportButton from '@/components/ExportButton'
 import { getUserRole } from '@/lib/auth-helpers'
 import AdminOnly from '@/components/AdminOnly'
+import { supabaseAdmin } from '@/lib/supabase/admin'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -13,10 +13,11 @@ export const metadata: Metadata = {
   description: 'Manage blog articles and content',
 }
 
+export const revalidate = 30 // Revalidate every 30 seconds
+
 export default async function BlogsPage() {
-  const supabase = await createClient()
   const userRolePromise = getUserRole()
-  const { data: blogs, error } = await supabase
+  const { data: blogs, error } = await supabaseAdmin
     .from('blogs')
     .select('*')
     .order('created_at', { ascending: false })

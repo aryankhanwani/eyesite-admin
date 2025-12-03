@@ -43,28 +43,30 @@ export default function DashboardLayoutClient({ user, userRole, children }: Dash
 
           {/* Logo - Center */}
           <div className="flex-1 flex justify-center">
-            <Link href="/dashboard" className="flex items-center gap-2">
-              <Image
-                src="/logo-icon.png"
-                alt="Eyesite Icon"
-                width={32}
-                height={32}
-                quality={100}
-                className="h-8 w-8 object-contain flex-shrink-0"
-                priority
-              />
-              <div className="flex flex-col">
+            <Link href="/dashboard" className="flex flex-col items-center gap-1">
+              {/* Both Logos Side by Side */}
+              <div className="flex items-center gap-1.5">
+                <Image
+                  src="/logo-icon.png"
+                  alt="Eyesite Icon"
+                  width={24}
+                  height={24}
+                  quality={100}
+                  className="h-6 w-6 object-contain shrink-0"
+                  priority
+                />
                 <Image
                   src="/eyesite-logo.png"
                   alt="Eyesite Opticians Logo"
-                  width={100}
-                  height={30}
+                  width={80}
+                  height={24}
                   quality={100}
-                  className="h-5 w-auto object-contain brightness-0 invert"
+                  className="h-4 w-auto object-contain brightness-0 invert"
                   priority
                 />
-                <p className="text-xs text-white/70 mt-0.5">Admin Panel</p>
               </div>
+              {/* Admin Panel Text Below Both Logos */}
+              <p className="text-[10px] text-white/70 leading-tight">Admin Panel</p>
             </Link>
           </div>
 

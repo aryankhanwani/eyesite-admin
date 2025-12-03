@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   description: 'Admin dashboard overview with statistics and quick actions',
 }
 
+export const revalidate = 30 // Revalidate every 30 seconds
+
 export default async function DashboardPage() {
   // Get user role
   const supabase = await createClient()

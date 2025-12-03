@@ -7,6 +7,8 @@ export const metadata: Metadata = {
   description: 'Track discount code signups and usage',
 }
 
+export const revalidate = 30 // Revalidate every 30 seconds
+
 export default async function OffersPage({
   searchParams,
 }: {

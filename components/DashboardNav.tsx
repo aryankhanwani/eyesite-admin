@@ -94,31 +94,33 @@ export default function DashboardNav({ user, userRole = 'staff', onNavigate }: D
   return (
     <div className="h-full flex flex-col bg-gradient-to-b from-[#19395f] to-[#0d2440] text-white shadow-xl">
       {/* Logo / header */}
-      <div className="h-20 flex items-center px-6 border-b border-white/10">
-        <Link href="/dashboard" className="flex items-center gap-3 cursor-pointer">
-          {/* Logo Icon */}
-          <Image
-            src="/logo-icon.png"
-            alt="Eyesite Icon"
-            width={40}
-            height={40}
-            quality={100}
-            className="h-10 w-10 object-contain"
-            priority
-          />
-          {/* Main Logo */}
-          <div className="flex flex-col">
+      <div className="px-4 py-3 border-b border-white/10">
+        <Link href="/dashboard" className="flex flex-col items-center gap-1 cursor-pointer">
+          {/* Both Logos Side by Side */}
+          <div className="flex items-center gap-2">
+            {/* Logo Icon */}
+            <Image
+              src="/logo-icon.png"
+              alt="Eyesite Icon"
+              width={28}
+              height={28}
+              quality={100}
+              className="h-7 w-7 object-contain"
+              priority
+            />
+            {/* Main Logo */}
             <Image
               src="/eyesite-logo.png"
               alt="Eyesite Opticians Logo"
-              width={120}
-              height={40}
+              width={90}
+              height={30}
               quality={100}
-              className="h-6 w-auto object-contain brightness-0 invert"
+              className="h-5 w-auto object-contain brightness-0 invert"
               priority
             />
-            <p className="text-xs text-white/70 mt-0.5">Admin Panel</p>
           </div>
+          {/* Admin Panel Text Below Both Logos */}
+          <p className="text-[10px] text-white/70 leading-tight">Admin Panel</p>
         </Link>
       </div>
 
@@ -132,6 +134,7 @@ export default function DashboardNav({ user, userRole = 'staff', onNavigate }: D
               <Link
                 key={item.href}
                 href={item.href}
+                prefetch={true}
                 onClick={onNavigate}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
                   active

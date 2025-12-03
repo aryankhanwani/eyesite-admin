@@ -7,6 +7,8 @@ export const metadata: Metadata = {
   description: 'Manage customer appointment inquiries',
 }
 
+export const revalidate = 30 // Revalidate every 30 seconds
+
 export default async function AppointmentsPage({
   searchParams,
 }: {
