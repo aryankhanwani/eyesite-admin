@@ -39,10 +39,14 @@ export default function NewUserPage() {
   }
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Add New User</h1>
+    <div className="space-y-6">
+      {/* Header */}
+      <div>
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Add New User</h1>
+        <p className="text-sm sm:text-base text-gray-600 mt-1">Create a new admin or staff account for the dashboard</p>
+      </div>
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6 max-w-md space-y-6">
+      <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8 max-w-md space-y-6">
         {error && (
           <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
             {error}

@@ -1,5 +1,11 @@
 import { supabaseAdmin } from '@/lib/supabase/admin'
 import EmailList from '@/components/EmailList'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Appointment Requests | Eyesite Admin',
+  description: 'Manage customer appointment inquiries',
+}
 
 export default async function AppointmentsPage({
   searchParams,
@@ -30,15 +36,33 @@ export default async function AppointmentsPage({
   const newCount = appointments?.filter(a => a.status === 'new').length || 0
   const bookedCount = appointments?.filter(a => a.status === 'booked').length || 0
 
+  const totalCount = appointments?.length || 0
+
   return (
-    <div className="space-y-4 sm:space-y-6">
-      <div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Appointment Requests</h1>
-        <p className="text-sm sm:text-base text-gray-600 mt-1">Manage customer appointment inquiries</p>
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Appointment Requests</h1>
+          <p className="text-sm sm:text-base text-gray-600 mt-1">Manage customer appointment inquiries and track booking status</p>
+        </div>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4 border border-purple-200">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-purple-700 font-medium">Total Requests</p>
+              <p className="text-2xl font-bold text-purple-900 mt-1">{totalCount}</p>
+            </div>
+            <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+          </div>
+        </div>
         <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 border border-blue-200">
           <div className="flex items-center justify-between">
             <div>

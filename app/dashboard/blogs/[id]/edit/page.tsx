@@ -23,12 +23,11 @@ export default async function EditBlogPage({ params }: PageProps) {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Edit Blog Post</h1>
-          <p className="text-gray-600 mt-2">Update your blog article content and settings</p>
-        </div>
-        <div className="px-4 py-2 bg-blue-50 border border-blue-200 rounded-lg">
+      {/* Header */}
+      <div>
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Edit Blog Post</h1>
+        <p className="text-sm sm:text-base text-gray-600 mt-1">Update your blog article content and settings</p>
+        <div className="mt-3 inline-flex items-center px-4 py-2 bg-blue-50 border border-blue-200 rounded-lg">
           <p className="text-sm text-blue-700 font-medium">Editing: {blog.title}</p>
         </div>
       </div>

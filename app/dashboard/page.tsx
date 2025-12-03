@@ -3,6 +3,12 @@ import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import RefreshButton from '@/components/RefreshButton'
 import AdminOnly from '@/components/AdminOnly'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Dashboard | Eyesite Admin',
+  description: 'Admin dashboard overview with statistics and quick actions',
+}
 
 export default async function DashboardPage() {
   // Get user role

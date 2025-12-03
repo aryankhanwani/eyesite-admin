@@ -6,6 +6,12 @@ import UserDeleteButton from '@/components/UserDeleteButton'
 import RefreshButton from '@/components/RefreshButton'
 import ExportButton from '@/components/ExportButton'
 import { isAdmin } from '@/lib/auth-helpers'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Users | Eyesite Admin',
+  description: 'Manage admin and staff accounts',
+}
 
 export default async function UsersPage() {
   // Only admins can access this page

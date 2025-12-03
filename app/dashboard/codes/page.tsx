@@ -50,8 +50,12 @@ export default function ValidateCodesPage() {
   }
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Validate Offer Code</h1>
+    <div className="space-y-6">
+      {/* Header */}
+      <div>
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Validate Offer Code</h1>
+        <p className="text-sm sm:text-base text-gray-600 mt-1">Check discount code validity and mark codes as used when customers redeem them</p>
+      </div>
 
       <div className="bg-white rounded-lg shadow-md p-6 max-w-2xl">
         <form onSubmit={handleValidate} className="mb-6">

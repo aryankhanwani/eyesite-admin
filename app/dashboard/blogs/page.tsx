@@ -6,6 +6,12 @@ import SafeImage from '@/components/SafeImage'
 import ExportButton from '@/components/ExportButton'
 import { getUserRole } from '@/lib/auth-helpers'
 import AdminOnly from '@/components/AdminOnly'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Blog Posts | Eyesite Admin',
+  description: 'Manage blog articles and content',
+}
 
 export default async function BlogsPage() {
   const supabase = await createClient()
