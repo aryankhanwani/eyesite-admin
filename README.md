@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Eyesite Admin Panel
 
-## Getting Started
+Admin dashboard for managing Eyesite Opticians website content and leads.
 
-First, run the development server:
+## Features
 
+- **Authentication**: Email/password login system
+- **Blog Management**: Full CRUD operations for blog posts
+- **User Management**: Create and manage admin/staff accounts
+- **Email Management**: 
+  - Newsletter subscribers
+  - Appointment requests with status tracking
+  - 20% off offer signups with unique code generation
+- **Code Validation**: Validate and mark offer codes as used
+
+## Setup
+
+1. Install dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Create `.env.local` file:
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Set up Supabase database:
+   - Run the SQL queries from `supabase-schema.sql` in your Supabase SQL editor
+   - This will create all necessary tables and insert default blog posts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Run the development server:
+```bash
+npm run dev
+```
 
-## Learn More
+5. Access the admin panel at `http://localhost:3000/login`
 
-To learn more about Next.js, take a look at the following resources:
+## Database Setup
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Run the SQL queries in `supabase-schema.sql` to:
+- Create all required tables
+- Set up indexes for performance
+- Insert default blog posts
+- Create triggers for updated_at timestamps
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## API Endpoints
 
-## Deploy on Vercel
+### Admin API Routes
+- `POST /api/blogs` - Create new blog
+- `PUT /api/blogs/[id]` - Update blog
+- `DELETE /api/blogs/[id]` - Delete blog
+- `POST /api/users` - Create new admin/staff user
+- `DELETE /api/users/[id]` - Delete user
+- `PATCH /api/emails/[table]/[id]` - Update email status
+- `GET /api/codes/validate?code=XXX` - Validate offer code
+- `PATCH /api/codes/[id]/mark-used` - Mark code as used
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Public API Routes (for frontend)
+- `POST /api/submit/newsletter` - Subscribe to newsletter
+- `POST /api/submit/appointment` - Submit appointment request
+- `POST /api/submit/offer` - Sign up for 20% off offer
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Pages
+
+- `/login` - Login page
+- `/dashboard` - Main dashboard with stats
+- `/dashboard/blogs` - Blog management
+- `/dashboard/blogs/new` - Create new blog
+- `/dashboard/blogs/[id]/edit` - Edit blog
+- `/dashboard/users` - User management
+- `/dashboard/users/new` - Create new user
+- `/dashboard/newsletters` - Newsletter subscribers
+- `/dashboard/appointments` - Appointment requests
+- `/dashboard/offers` - Offer signups
+- `/dashboard/codes` - Code validation
+
+## Notes
+
+- All admin routes are protected by authentication middleware
+- Lead statuses for appointments: new, contacted, booked, cancelled
+- Offer codes are automatically generated and unique
+- Codes can be validated and marked as used to prevent reuse
