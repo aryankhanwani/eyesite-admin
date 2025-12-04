@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
 import { isAdmin } from '@/lib/auth-helpers'
+import { revalidatePath } from 'next/cache'
 
 export async function POST(request: Request) {
   try {
@@ -38,6 +39,11 @@ export async function POST(request: Request) {
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 400 })
     }
+
+    // Revalidate blog pages to show new content instantly
+    revalidatePath('/blog')
+    revalidatePath('/api/blogs')
+    revalidatePath('/')
 
     return NextResponse.json(data)
   } catch (error: any) {

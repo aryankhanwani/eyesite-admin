@@ -43,6 +43,9 @@ export default function BlogForm({ blog }: BlogFormProps) {
   const [tagInput, setTagInput] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [uploading, setUploading] = useState(false)
+  const [uploadError, setUploadError] = useState('')
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const categories = [
     'Eye Health',
@@ -155,6 +158,43 @@ export default function BlogForm({ blog }: BlogFormProps) {
       ...formData,
       tags: formData.tags.filter((t) => t !== tag),
     })
+  }
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setUploading(true)
+    setUploadError('')
+
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const res = await fetch('/api/upload/blog-image', {
+        method: 'POST',
+        body: formData,
+      })
+
+      if (!res.ok) {
+        const data = await res.json()
+        throw new Error(data.error || 'Failed to upload image')
+      }
+
+      const data = await res.json()
+      setFormData((prev) => ({
+        ...prev,
+        image: data.url,
+      }))
+    } catch (err: any) {
+      setUploadError(err.message)
+    } finally {
+      setUploading(false)
+      // Reset file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = ''
+      }
+    }
   }
 
   return (
@@ -400,24 +440,95 @@ export default function BlogForm({ blog }: BlogFormProps) {
               </div>
             </div>
 
-            {/* Image URL */}
+            {/* Image Upload/URL */}
             <div className="mt-6">
               <label className="flex items-center gap-2 text-sm font-semibold text-gray-700 mb-2">
                 <svg className="w-4 h-4 text-[#19395f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                Featured Image URL
+                Featured Image
               </label>
-              <input
-                type="text"
-                value={formData.image}
-                onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#19395f] focus:border-[#19395f] transition-all text-black placeholder:text-gray-400 font-mono text-sm"
-                placeholder="/image.png or https://example.com/image.jpg"
-              />
+              
+              {/* File Upload */}
+              <div className="mb-4">
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/jpeg,image/jpg,image/png,image/webp,image/gif"
+                  onChange={handleFileUpload}
+                  disabled={uploading}
+                  className="hidden"
+                  id="image-upload"
+                />
+                <label
+                  htmlFor="image-upload"
+                  className={`inline-flex items-center gap-2 px-4 py-3 border-2 border-dashed rounded-lg cursor-pointer transition-all ${
+                    uploading
+                      ? 'border-gray-300 bg-gray-50 cursor-not-allowed'
+                      : 'border-[#19395f] bg-white hover:bg-[#19395f] hover:text-white hover:border-[#19395f]'
+                  }`}
+                >
+                  {uploading ? (
+                    <>
+                      <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      <span className="text-sm font-medium">Uploading...</span>
+                    </>
+                  ) : (
+                    <>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                      </svg>
+                      <span className="text-sm font-medium">Upload Image to Supabase</span>
+                    </>
+                  )}
+                </label>
+                <p className="text-xs text-gray-500 mt-2">Supported formats: JPEG, PNG, WebP, GIF (Max 5MB)</p>
+                {uploadError && (
+                  <div className="mt-2 text-sm text-red-600 bg-red-50 border border-red-200 rounded px-3 py-2">
+                    {uploadError}
+                  </div>
+                )}
+              </div>
+
+              {/* Divider */}
+              <div className="relative my-4">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-300"></div>
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-2 bg-white text-gray-500">OR</span>
+                </div>
+              </div>
+
+              {/* URL Input */}
+              <div>
+                <label className="block text-xs font-medium text-gray-600 mb-2">Or enter image URL:</label>
+                <input
+                  type="text"
+                  value={formData.image}
+                  onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#19395f] focus:border-[#19395f] transition-all text-black placeholder:text-gray-400 font-mono text-sm"
+                  placeholder="https://example.com/image.jpg"
+                />
+              </div>
+
+              {/* Image Preview */}
               {formData.image && (
-                <div className="mt-3 rounded-lg overflow-hidden border border-gray-200">
+                <div className="mt-4 rounded-lg overflow-hidden border border-gray-200">
                   <SafeImage src={formData.image} alt="Preview" className="w-full h-48 object-cover" />
+                  <div className="p-3 bg-gray-50 border-t border-gray-200">
+                    <p className="text-xs text-gray-600 break-all">{formData.image}</p>
+                    <button
+                      type="button"
+                      onClick={() => setFormData({ ...formData, image: '' })}
+                      className="mt-2 text-xs text-red-600 hover:text-red-800 font-medium"
+                    >
+                      Remove Image
+                    </button>
+                  </div>
                 </div>
               )}
             </div>

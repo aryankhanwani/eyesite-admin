@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
 import { isAdmin } from '@/lib/auth-helpers'
+import { revalidatePath } from 'next/cache'
 
 interface RouteParams {
   params: Promise<{ id: string }>
@@ -52,6 +53,12 @@ export async function PUT(
       return NextResponse.json({ error: error.message }, { status: 400 })
     }
 
+    // Revalidate blog pages to show updated content instantly
+    revalidatePath('/blog')
+    revalidatePath(`/blog/${data.slug}`)
+    revalidatePath('/api/blogs')
+    revalidatePath('/')
+
     return NextResponse.json(data)
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 })
@@ -83,6 +90,11 @@ export async function DELETE(
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 400 })
     }
+
+    // Revalidate blog pages to remove deleted content instantly
+    revalidatePath('/blog')
+    revalidatePath('/api/blogs')
+    revalidatePath('/')
 
     return NextResponse.json({ success: true })
   } catch (error: any) {
